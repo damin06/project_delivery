@@ -67,7 +67,7 @@ public class Car_Controller : MonoBehaviour
     {
         AddForce();
         currentSpeed = rb.velocity.magnitude*3.6f;
-        radius = 3 + currentSpeed/12;
+        radius = 4 + currentSpeed/9;
         GetInputs();
         AnimateWheels();
         //WheelEffects();
@@ -124,10 +124,10 @@ public class Car_Controller : MonoBehaviour
         {
             if (wheel.axel == Axel.Front)
             {
-                var _steerAngle = steerInput   * maxSteerAngle;
-                wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
+                var _steerAngle = steerInput * 1  * maxSteerAngle;
+                //wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
                 //wheel.wheelCollider.steerAngle = _steerAngle;
-                //wheel.wheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f /(radius + (1.5f/2))) * steerInput;
+                wheel.wheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f /(radius + (1.5f/2))) * steerInput;
             }
         }
     }
@@ -160,8 +160,8 @@ public class Car_Controller : MonoBehaviour
     {
         foreach(var wheel in wheels)
         {
-            Quaternion rot;
-            Vector3 pos;
+            Quaternion rot = Quaternion.identity;
+            Vector3 pos = Vector3.zero;
             wheel.wheelCollider.GetWorldPose(out pos, out rot);
             wheel.wheelModel.transform.position = pos;
             wheel.wheelModel.transform.rotation = rot;
